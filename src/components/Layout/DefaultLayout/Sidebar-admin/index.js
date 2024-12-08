@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 function SidebarAdmin() {
     return (
         <div className="sidebar-admin">
-            <h2>AdMin</h2>
+            <h2>Admin</h2>
             <div className="sidebar-list">
                 <ul>
                     <li>
-                        <Link>Quản lý người dùng</Link>
+                        <Link to="/admin/usermanagement">Quản lý người dùng</Link>
                     </li>
                     <li>
-                        <Link>Quản lý sản phẩm</Link>
+                        <Link to="/admin/productmanagement">Quản lý sản phẩm</Link>
                     </li>
                     <li>
                         <Link to="/admin/odermanagement">Quản lý đơn hàng</Link>

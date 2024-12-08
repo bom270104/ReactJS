@@ -42,8 +42,6 @@ export const loginUser = async (username, password) => {
             },
         );
 
-        console.log(response.data); // Kiểm tra dữ liệu trả về từ API
-
         // Kiểm tra phản hồi từ server
         if (response.data.success) {
             return {

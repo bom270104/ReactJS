@@ -20,7 +20,8 @@ import ProductDetail from './pages/ProductDetail';
 // Admin
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import OrderManagement from './pages/Admin/OrderManagement';
-
+import UserManagement from './pages/Admin/UserManagement';
+import ProductManagement from './pages/Admin/ProductManagement';
 function App() {
     const location = useLocation(); // Lấy đường dẫn hiện tại
 
@@ -48,6 +49,8 @@ function App() {
                         <Route path="/history-payment" element={<PaymentHistory />} />
                         <Route path="/admin" element={<AdminDashboard />} />
                         <Route path="/admin/odermanagement" element={<OrderManagement />} />
+                        <Route path="/admin/usermanagement" element={<UserManagement />} />
+                        <Route path="/admin/productmanagement" element={<ProductManagement />} />
                     </Routes>
                     {!isAdminRoute && <Footer />}
                 </div>

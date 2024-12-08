@@ -9,7 +9,13 @@
             display: flex;
             justify-content: center;
         }
-
+        .order-summary {
+            display: flex;
+            justify-content: center;
+            p {
+                margin: 0 10px;
+            }
+        }
         table {
             width: 95%;
             border-collapse: collapse;
@@ -36,15 +42,22 @@
                     }
 
                     td {
-                        padding: 12px;
+                        padding: 10px 0;
                         border-bottom: 1px solid #ddd;
                     }
                 }
             }
         }
+        .btn-edit {
+            text-align: left;
+            float: left;
+        }
+        .btn-delete {
+            text-align: right;
+            float: right;
+        }
         button {
-            margin: 0 5px;
-            padding: 8px 12px;
+            padding: 10px;
             background-color: var(--color-green);
             color: white;
             border: none;

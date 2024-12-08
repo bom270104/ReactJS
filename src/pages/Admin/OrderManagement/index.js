@@ -12,6 +12,7 @@ function OrderManagement() {
         totalAmount: '',
         paymentTime: '',
         status: 'pending',
+        approvalTime: '',
     });
     const [editIndex, setEditIndex] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -21,17 +22,30 @@ function OrderManagement() {
         setOrders(savedOrders);
     }, []);
 
+    const formatDate = (date) => {
+        return new Date(date).toLocaleString('vi-VN', {
+            hour12: false,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+    };
+
     const handleApproveOrder = (index) => {
         const updatedOrders = [...orders];
-        updatedOrders[index].status = 'approved'; // Cập nhật trạng thái đơn hàng
+        updatedOrders[index].status = 'approved';
+        updatedOrders[index].approvalTime = formatDate(new Date());
         setOrders(updatedOrders);
-        localStorage.setItem('payments', JSON.stringify(updatedOrders)); // Lưu lại vào localStorage
+        localStorage.setItem('payments', JSON.stringify(updatedOrders));
     };
 
     const handleAddOrder = () => {
         const updatedOrders = [
             ...orders,
-            { ...newOrder, orderId: `ORD-${Date.now()}`, paymentTime: new Date().toLocaleString() },
+            { ...newOrder, orderId: `ORD-${Date.now()}`, paymentTime: formatDate(new Date()) },
         ];
         setOrders(updatedOrders);
         localStorage.setItem('payments', JSON.stringify(updatedOrders));
@@ -42,7 +56,8 @@ function OrderManagement() {
             totalAmount: '',
             paymentTime: '',
             status: 'pending',
-        }); // Reset form
+            approvalTime: '',
+        });
     };
 
     const handleEditOrder = (index) => {
@@ -53,7 +68,7 @@ function OrderManagement() {
 
     const handleUpdateOrder = () => {
         const updatedOrders = [...orders];
-        updatedOrders[editIndex] = { ...newOrder, paymentTime: new Date().toLocaleString() }; // Cập nhật thời gian thanh toán
+        updatedOrders[editIndex] = { ...newOrder, paymentTime: formatDate(new Date()) };
         setOrders(updatedOrders);
         localStorage.setItem('payments', JSON.stringify(updatedOrders));
         setNewOrder({
@@ -63,7 +78,8 @@ function OrderManagement() {
             totalAmount: '',
             paymentTime: '',
             status: 'pending',
-        }); // Reset form
+            approvalTime: '',
+        });
         setIsEditing(false);
         setEditIndex(null);
     };
@@ -74,6 +90,10 @@ function OrderManagement() {
         localStorage.setItem('payments', JSON.stringify(updatedOrders));
     };
 
+    // Tính toán số lượng đơn hàng và đơn hàng đã duyệt
+    const totalOrders = orders.length;
+    const approvedOrders = orders.filter((order) => order.status === 'approved').length;
+
     return (
         <div className="order-management">
             <NavbarAdmin />
@@ -82,6 +102,10 @@ function OrderManagement() {
                 <SidebarAdmin />
                 <div className="oder-table">
                     <h2>Quản lý đơn hàng</h2>
+                    <div className="order-summary">
+                        <p>Tổng số đơn hàng: {totalOrders}</p>
+                        <p>Số đơn hàng đã duyệt: {approvedOrders}</p>
+                    </div>
 
                     {isEditing ? (
                         <div>
@@ -114,6 +138,7 @@ function OrderManagement() {
                             </button>
                         </div>
                     ) : null}
+
                     {orders.length === 0 ? (
                         <p>Chưa có đơn hàng nào.</p>
                     ) : (
@@ -126,6 +151,7 @@ function OrderManagement() {
                                     <th>Địa chỉ</th>
                                     <th>Tổng số tiền</th>
                                     <th>Thời gian đặt đơn</th>
+                                    <th>Thời gian duyệt đơn</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
@@ -138,14 +164,20 @@ function OrderManagement() {
                                         <td>{order.phoneNumber}</td>
                                         <td>{order.address}</td>
                                         <td>{order.totalAmount}</td>
-                                        <td>{order.paymentTime}</td>
-                                        <td>{order.status}</td>
+                                        <td>{formatDate(order.paymentTime)}</td>
+                                        <td>{order.approvalTime ? formatDate(order.approvalTime) : 'Chưa duyệt'}</td>
                                         <td>
                                             {order.status === 'pending' && (
                                                 <button onClick={() => handleApproveOrder(index)}>Duyệt đơn</button>
                                             )}
-                                            <button onClick={() => handleEditOrder(index)}>Sửa</button>
-                                            <button onClick={() => handleDeleteOrder(index)}>Xóa</button>
+                                        </td>
+                                        <td className="btn-action">
+                                            <button className="btn-edit" onClick={() => handleEditOrder(index)}>
+                                                Sửa
+                                            </button>
+                                            <button className="btn-delete" onClick={() => handleDeleteOrder(index)}>
+                                                Xóa
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

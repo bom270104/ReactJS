@@ -22,8 +22,6 @@ function navbarAdmin() {
                     <MdAdminPanelSettings />
                 </i>
             </div>
-
-            <button>Đăng Xuất</button>
         </div>
     );
 }
