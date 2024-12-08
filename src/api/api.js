@@ -59,3 +59,32 @@ export const loginUser = async (username, password) => {
         throw error; // Ném lỗi ra ngoài để xử lý ở nơi gọi
     }
 };
+export const getUsers = async () => {
+    try {
+        const response = await axios.get(`${API_URL}?action=getUsers`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return { success: false, message: 'Failed to fetch users.' };
+    }
+};
+export const deleteUser = async (userId) => {
+    try {
+        const response = await axios.post(
+            API_URL,
+            {
+                action: 'deleteUser', // Hành động xác định trong api.php
+                user_id: userId, // ID người dùng cần xóa
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        );
+        return response.data; // Trả về phản hồi từ server
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        return { success: false, message: 'Failed to delete user.' };
+    }
+};

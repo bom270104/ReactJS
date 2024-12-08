@@ -2,3 +2,41 @@
     display: flex;
     margin-top: 50px;
 }
+.user-table {
+    padding: 20px;
+    h2 {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        .user-tr {
+            border-radius: 5px;
+            background-color: var(--color-green);
+        }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    }
+    .error {
+        color: red;
+        margin: 10px 0;
+    }
+}
+.btn-edit,
+.btn-delete {
+    padding: 5px 10px;
+    margin-left: 2px;
+    background-color: var(--color-green);
+    border-radius: 5px;
+    color: var(--color-white);
+    border: none;
+    &:hover {
+        background-color: var(--color-green-hover);
+    }
+}
