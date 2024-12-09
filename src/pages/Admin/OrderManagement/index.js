@@ -36,10 +36,10 @@ function OrderManagement() {
 
     const handleApproveOrder = (index) => {
         const updatedOrders = [...orders];
-        updatedOrders[index].status = 'approved';
-        updatedOrders[index].approvalTime = formatDate(new Date());
+        updatedOrders[index].status = 'Đã duyệt'; // Thay đổi trạng thái
+        updatedOrders[index].approvalTime = formatDate(new Date()); // Cập nhật thời gian duyệt
         setOrders(updatedOrders);
-        localStorage.setItem('payments', JSON.stringify(updatedOrders));
+        localStorage.setItem('payments', JSON.stringify(updatedOrders)); // Lưu vào localStorage
     };
 
     const handleAddOrder = () => {
@@ -166,6 +166,8 @@ function OrderManagement() {
                                         <td>{order.totalAmount}</td>
                                         <td>{formatDate(order.paymentTime)}</td>
                                         <td>{order.approvalTime ? formatDate(order.approvalTime) : 'Chưa duyệt'}</td>
+                                        <td>{order.status === 'pending' ? 'Chưa duyệt' : 'Đã duyệt'}</td>
+
                                         <td>
                                             {order.status === 'pending' && (
                                                 <button onClick={() => handleApproveOrder(index)}>Duyệt đơn</button>

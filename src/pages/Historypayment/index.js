@@ -1,4 +1,3 @@
-// src/pages/PaymentHistory/index.js
 import React, { useEffect, useState } from 'react';
 import './Historypayment.scss';
 
@@ -55,11 +54,12 @@ function PaymentHistory() {
                 <table>
                     <thead>
                         <tr>
-                            <th>Trạng thái đơn</th>
+                            <th>Đơn hàng</th>
                             <th>Tên người nhận</th>
                             <th>Tổng số tiền</th>
                             <th>Thời gian thanh toán</th>
                             <th>Thời gian duyệt đơn</th>
+                            <th>Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +70,7 @@ function PaymentHistory() {
                                 <td>{payment.totalAmount}</td>
                                 <td>{formatDate(payment.paymentTime)}</td>
                                 <td>{payment.approvalTime ? formatDate(payment.approvalTime) : 'Chưa duyệt'}</td>
+                                <td>{payment.approvalTime ? 'Đã duyệt' : 'Chưa duyệt'}</td>
                             </tr>
                         ))}
                     </tbody>

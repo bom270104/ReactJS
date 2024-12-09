@@ -16,7 +16,12 @@
             border-radius: 5px;
             background-color: var(--color-green);
         }
-        th,
+        th {
+            color: var(--color-white);
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
         td {
             padding: 10px;
             text-align: left;
